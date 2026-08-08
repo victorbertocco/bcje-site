@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/*
+ * Paleta institucional BCJE.
+ * Decisão (08/2026): manter o verde do site anterior por continuidade de
+ * reconhecimento de marca, mas em tom mais escuro e sóbrio, adequado ao
+ * segmento jurídico (o verde do WordPress, #1BAE70, era o padrão do tema
+ * Astra, nunca formalizado como identidade visual da marca).
+ * O cinza #666666 do rodapé dos documentos institucionais segue como neutro
+ * para texto secundário e elementos institucionais (nav, rodapé do site).
+ */
+@theme {
+  --color-bcje-ink: #1a1a1a;         /* texto principal, títulos */
+  --color-bcje-graphite: #666666;    /* texto secundário, nav, institucional (cor do rodapé dos documentos) */
+  --color-bcje-steel: #8c8f94;       /* tom do logo, bordas discretas, ícones */
+  --color-bcje-mist: #e5e7ea;        /* bordas e divisores */
+  --color-bcje-fog: #f6f7f8;         /* fundo de seção alternado */
+  --color-bcje-accent: #0b7a4f;      /* verde institucional, ações e CTAs */
+  --color-bcje-accent-dark: #0a5e3d; /* verde institucional, hover/active */
+
+  /* Carlito é metricamente compatível com Calibri (fonte do template de
+     documentos) e, ao contrário de Calibri, tem licença livre para uso web. */
+  --font-sans: "Carlito", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-bcje-ink antialiased;
+    font-family: var(--font-sans);
+  }
+}

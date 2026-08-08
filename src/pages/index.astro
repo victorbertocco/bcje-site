@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CtaButton from '../components/CtaButton.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+
+/*
+ * Conteúdo migrado do site WordPress atual (wordpress-export/index.html),
+ * não reescrito do zero. Ver marketing/site-bcje/ARQUITETURA-NOVO-SITE.md
+ * no workspace principal para o histórico da migração.
+ */
+const motivos = [
+  {
+    title: 'Economia de Tempo e Recurso',
+    description:
+      'Contratar uma consultoria pode parecer um investimento inicial, mas que pode gerar economias a longo prazo. Resolvemos disputas de forma eficaz e, se necessário, contamos ainda com toda a estrutura e suporte para atuação no contencioso.',
+  },
+  {
+    title: 'Tomada de Decisões Embasadas',
+    description:
+      'Ter uma equipe jurídica ao seu lado significa que você pode tomar decisões estratégicas. Isso inclui a expansão para novos mercados, negociações complexas e qualquer situação que possa afetar a estrutura legal-administrativa de sua empresa.',
+  },
+  {
+    title: 'Proteção da Reputação',
+    description:
+      'Questões mal administradas podem resultar em danos à reputação da sua empresa. Uma assessoria jurídica eficiente pode ajudar a minimizar esses riscos, assegurando que sua empresa siga as melhores práticas éticas e legais.',
+  },
+  {
+    title: 'Prevenção de Riscos',
+    description:
+      'Podemos ajudá-lo a antecipar e evitar potenciais problemas legais. Ao avaliar contratos, acordos comerciais, políticas internas e regulamentos, podemos identificar cláusulas problemáticas e garantir que sua empresa esteja em conformidade com as leis e regulamentações aplicáveis.',
+  },
+];
+---
+
+<BaseLayout title="Início">
+  <section class="mx-auto max-w-4xl px-6 py-20 text-center">
+    <h1 class="text-4xl font-bold text-bcje-ink sm:text-5xl">
+      A BCJE busca conectar você ou sua empresa às soluções mais eficazes disponíveis no mundo
+      jurídico!
+    </h1>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <CtaButton href="/sobre" variant="secondary">Saiba mais</CtaButton>
+      <CtaButton href="/contatos">Fale conosco</CtaButton>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-16 text-center">
+    <p class="text-xl leading-relaxed text-bcje-graphite">
+      Um escritório de advocacia serve para ajudar nas complexidades da vida e não para ser mais
+      uma!
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-16 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Cada detalhe conta
+    </p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">Importância de um bom escritório</h2>
+    <p class="mt-6 text-xl font-semibold text-bcje-ink">E por que escolher uma consultoria?</p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {motivos.map((motivo) => <InfoCard title={motivo.title} description={motivo.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp />
+  </section>
+</BaseLayout>

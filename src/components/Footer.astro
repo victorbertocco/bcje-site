@@ -1,0 +1,82 @@
+---
+const nav = [
+  { href: '/atuacao', label: 'Atuação' },
+  { href: '/sobre', label: 'Sobre Nós' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contatos', label: 'Contatos' },
+];
+
+const redes = [
+  { href: 'https://wa.me/5511976547272', label: 'WhatsApp' },
+  { href: 'https://www.instagram.com/bertoccoconsultoria/', label: 'Instagram' },
+  { href: 'https://facebook.com/bertoccoconsultoria', label: 'Facebook' },
+  { href: 'https://linkedin.com/bertocco-consultoria', label: 'LinkedIn' },
+];
+
+const anoAtual = new Date().getFullYear();
+---
+
+<footer class="border-t border-bcje-mist bg-bcje-fog">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-12 text-sm text-bcje-graphite md:grid-cols-4">
+    <div>
+      <p class="leading-relaxed">
+        Na BCJE destacamos o compromisso com a excelência, a expertise legal e a dedicação ao
+        sucesso de nossos clientes.
+      </p>
+      <a href="/privacidade" class="mt-4 inline-block font-semibold text-bcje-ink hover:text-bcje-accent">
+        Aviso de Privacidade
+      </a>
+    </div>
+
+    <div>
+      <p class="font-bold text-bcje-ink">Escritório</p>
+      <ul class="mt-2 space-y-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="hover:text-bcje-accent">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="font-bold text-bcje-ink">Redes Sociais</p>
+      <ul class="mt-2 space-y-1">
+        {
+          redes.map((item) => (
+            <li>
+              <a href={item.href} target="_blank" rel="noopener noreferrer" class="hover:text-bcje-accent">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="font-bold text-bcje-ink">Contatos</p>
+      <p class="mt-2 leading-relaxed">
+        Avenida Doutor Rudge Ramos, 1174, D18, Rudge Ramos, São Bernardo do Campo/SP. 09638-000.
+      </p>
+      <p class="mt-2"><a href="tel:+5511976547272" class="hover:text-bcje-accent">+55 (11) 97654-7272</a></p>
+      <p><a href="mailto:contato@bcje.com.br" class="hover:text-bcje-accent">contato@bcje.com.br</a></p>
+    </div>
+  </div>
+
+  <div class="border-t border-bcje-mist px-6 py-4 text-center text-xs leading-relaxed text-bcje-graphite">
+    <p>
+      Bertocco Consultoria Jurídica Estratégica | Sociedade de Advogados - OAB/SP 50.243 | CNPJ
+      52.073.556/0001-01 | Av. Doutor Rudge Ramos, 1174, D18, Rudge Ramos, São Bernardo do
+      Campo/SP, CEP 09638-000
+    </p>
+  </div>
+
+  <div class="border-t border-bcje-mist py-4 text-center text-xs text-bcje-graphite">
+    <p>Copyright © {anoAtual} Bertocco Consultoria Jurídica Estratégica</p>
+  </div>
+</footer>

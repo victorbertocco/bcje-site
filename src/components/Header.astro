@@ -1,0 +1,69 @@
+---
+const navItems = [
+  { href: '/atuacao', label: 'Atuação' },
+  { href: '/sobre', label: 'Sobre Nós' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contatos', label: 'Contatos' },
+];
+---
+
+<header class="border-b border-bcje-mist bg-white">
+  <div class="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/logo-bcje.png" alt="BCJE" class="h-10 w-10" />
+      <span class="text-xs font-bold uppercase leading-tight tracking-wide text-bcje-ink">
+        Bertocco Consultoria<br />Jurídica Estratégica
+      </span>
+    </a>
+
+    <nav aria-label="Navegação principal" class="hidden md:block">
+      <ul class="flex gap-8 text-sm font-semibold uppercase tracking-wide text-bcje-graphite">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} class="transition-colors hover:text-bcje-accent">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a
+      href="https://wa.me/5511976547272"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden items-center rounded-full bg-bcje-accent px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-bcje-accent-dark md:inline-flex"
+    >
+      Fale conosco
+    </a>
+
+    <details class="md:hidden">
+      <summary class="cursor-pointer list-none rounded-md border border-bcje-mist px-3 py-2 text-sm font-semibold text-bcje-ink">
+        Menu
+      </summary>
+      <ul class="absolute inset-x-6 z-10 mt-2 space-y-1 rounded-xl border border-bcje-mist bg-white p-4 text-sm font-semibold uppercase tracking-wide text-bcje-graphite shadow-lg">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} class="block py-1 hover:text-bcje-accent">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="pt-2">
+          <a
+            href="https://wa.me/5511976547272"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block rounded-md bg-bcje-accent px-3 py-2 text-center normal-case text-white"
+          >
+            Fale conosco
+          </a>
+        </li>
+      </ul>
+    </details>
+  </div>
+</header>
