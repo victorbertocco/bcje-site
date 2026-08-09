@@ -9,6 +9,8 @@ import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
  * não reescrito do zero. Ver marketing/site-bcje/ARQUITETURA-NOVO-SITE.md
  * no workspace principal para o histórico da migração.
  */
+const base = import.meta.env.BASE_URL;
+
 const motivos = [
   {
     title: 'Economia de Tempo e Recurso',
@@ -40,8 +42,8 @@ const motivos = [
       jurídico!
     </h1>
     <div class="mt-8 flex flex-wrap justify-center gap-4">
-      <CtaButton href="/sobre" variant="secondary">Saiba mais</CtaButton>
-      <CtaButton href="/contatos">Fale conosco</CtaButton>
+      <CtaButton href={`${base}sobre`} variant="secondary">Saiba mais</CtaButton>
+      <CtaButton href={`${base}contatos`}>Fale conosco</CtaButton>
     </div>
   </section>
 

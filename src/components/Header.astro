@@ -1,16 +1,18 @@
 ---
+const base = import.meta.env.BASE_URL;
+
 const navItems = [
-  { href: '/atuacao', label: 'Atuação' },
-  { href: '/sobre', label: 'Sobre Nós' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contatos', label: 'Contatos' },
+  { href: `${base}atuacao`, label: 'Atuação' },
+  { href: `${base}sobre`, label: 'Sobre Nós' },
+  { href: `${base}blog`, label: 'Blog' },
+  { href: `${base}contatos`, label: 'Contatos' },
 ];
 ---
 
 <header class="border-b border-bcje-mist bg-white">
   <div class="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/logo-bcje.png" alt="BCJE" class="h-10 w-10" />
+    <a href={base} class="flex items-center gap-3">
+      <img src={`${base}logo-bcje.png`} alt="BCJE" class="h-10 w-10" />
       <span class="text-xs font-bold uppercase leading-tight tracking-wide text-bcje-ink">
         Bertocco Consultoria<br />Jurídica Estratégica
       </span>

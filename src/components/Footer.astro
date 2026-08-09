@@ -1,9 +1,11 @@
 ---
+const base = import.meta.env.BASE_URL;
+
 const nav = [
-  { href: '/atuacao', label: 'Atuação' },
-  { href: '/sobre', label: 'Sobre Nós' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contatos', label: 'Contatos' },
+  { href: `${base}atuacao`, label: 'Atuação' },
+  { href: `${base}sobre`, label: 'Sobre Nós' },
+  { href: `${base}blog`, label: 'Blog' },
+  { href: `${base}contatos`, label: 'Contatos' },
 ];
 
 const redes = [
@@ -23,7 +25,7 @@ const anoAtual = new Date().getFullYear();
         Na BCJE destacamos o compromisso com a excelência, a expertise legal e a dedicação ao
         sucesso de nossos clientes.
       </p>
-      <a href="/privacidade" class="mt-4 inline-block font-semibold text-bcje-ink hover:text-bcje-accent">
+      <a href={`${base}privacidade`} class="mt-4 inline-block font-semibold text-bcje-ink hover:text-bcje-accent">
         Aviso de Privacidade
       </a>
     </div>

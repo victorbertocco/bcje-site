@@ -45,7 +45,7 @@ npm run preview   # serve o build de produção localmente
 bcje-site/
 ├── .github/workflows/deploy.yml   deploy automático no GitHub Pages a cada push na main
 ├── public/
-│   ├── CNAME                      domínio customizado (bcje.com.br)
+│   ├── CNAME.disabled              domínio customizado (bcje.com.br), desativado temporariamente
 │   ├── logo-bcje.png              logo oficial, reaproveitada do site WordPress
 │   └── favicon.png
 ├── src/
@@ -78,12 +78,23 @@ Antes de publicar (`draft: false`), rodar a skill `auditoria-compliance-oab` do 
 
 ## Deploy
 
-Push na branch `main` dispara o workflow `.github/workflows/deploy.yml`, que builda o site e publica no GitHub Pages. O domínio `bcje.com.br` precisa ter, na Hostinger (ou onde o DNS estiver hospedado):
+Push na branch `main` dispara o workflow `.github/workflows/deploy.yml`, que builda o site e publica no GitHub Pages.
 
-- Registros **A** no domínio raiz apontando para os IPs do GitHub Pages
-- Registro **CNAME** de `www` apontando para `<usuario>.github.io`
+### Estado atual: TEMPORÁRIO, sem domínio customizado ativo
 
-Enquanto o DNS não for repontado, o site fica acessível pela URL padrão do GitHub Pages.
+O primeiro deploy em `bcje.com.br` real quebrou o CSS: `astro.config.mjs` tinha `base: '/'` (correto só para domínio customizado), mas sem o DNS apontado o site fica acessível apenas na URL provisória `https://victorbertocco.github.io/bcje-site/`, que exige todo asset prefixado com `/bcje-site/`. Todo `href`/`src` root-relative (CSS, logo, favicon) dava 404.
+
+Enquanto o DNS não for migrado, o projeto fica configurado assim:
+
+- `astro.config.mjs`: `base: '/bcje-site/'`
+- `public/CNAME.disabled` (renomeado de `public/CNAME`, GitHub Pages só reconhece o nome exato `CNAME`)
+
+**Para migrar de fato para `bcje.com.br`**, num commit dedicado "prep para migração DNS":
+
+1. `astro.config.mjs`: `base: '/'`
+2. `public/CNAME.disabled` → `public/CNAME`
+3. Na Hostinger (ou onde o DNS estiver hospedado): registros **A** no domínio raiz apontando para os IPs do GitHub Pages, registro **CNAME** de `www` apontando para `<usuario>.github.io`
+4. Confirmar em Settings → Pages do repo que o domínio customizado foi aceito e o certificado HTTPS foi emitido
 
 ## Identificação profissional (OAB)
 
