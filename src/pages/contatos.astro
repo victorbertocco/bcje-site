@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+
+/*
+ * Conteúdo migrado do site WordPress atual (wordpress-export/contatos/index.html),
+ * não reescrito do zero. Ver marketing/site-bcje/ARQUITETURA-NOVO-SITE.md
+ * no workspace principal para o histórico da migração.
+ *
+ * Decisão de escopo (09/08/2026): esta página publica os canais de contato que
+ * já funcionam hoje (endereço, e-mail, telefone, WhatsApp). O formulário do
+ * Elementor original dependia de infraestrutura que ainda não existe no novo
+ * site (Cloudflare Worker + Resend, ver README.md "O que ainda falta") e fica
+ * como pendência registrada, não como placeholder nesta página.
+ *
+ * A seção "Desbloqueie infinitas novas possibilidades!" do original foi
+ * descartada por ser texto de preenchimento de template (Elementor/Envato),
+ * sem relação com a página de contato — não era copy real do BCJE.
+ */
+const contatos = [
+  {
+    title: 'Endereço',
+    lines: ['Avenida Doutor Rudge Ramos, 1174, D18', 'Rudge Ramos, São Bernardo do Campo/SP', 'CEP 09638-000'],
+  },
+  {
+    title: 'Telefone',
+    lines: ['+55 (11) 97654-7272'],
+    href: 'tel:+5511976547272',
+  },
+  {
+    title: 'E-mail',
+    lines: ['contato@bcje.com.br', 'victor@bcje.com.br'],
+    hrefs: ['mailto:contato@bcje.com.br', 'mailto:victor@bcje.com.br'],
+  },
+];
+---
+
+<BaseLayout
+  title="Contatos"
+  description="Entre em contato com a Bertocco Consultoria Jurídica Estratégica (BCJE): endereço, telefone, e-mail e WhatsApp para atendimento inicial."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">Contatos</h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Ficaremos felizes em poder te ajudar.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-3">
+      {
+        contatos.map((item) => (
+          <div class="rounded-2xl border border-bcje-mist bg-white p-6 text-center">
+            <h2 class="text-lg font-bold text-bcje-ink">{item.title}</h2>
+            <div class="mt-3 space-y-1 text-sm leading-relaxed text-bcje-graphite">
+              {item.lines.map((line, i) =>
+                item.hrefs ? (
+                  <p>
+                    <a href={item.hrefs[i]} class="hover:text-bcje-accent">
+                      {line}
+                    </a>
+                  </p>
+                ) : item.href ? (
+                  <p>
+                    <a href={item.href} class="hover:text-bcje-accent">
+                      {line}
+                    </a>
+                  </p>
+                ) : (
+                  <p>{line}</p>
+                )
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp />
+  </section>
+</BaseLayout>
