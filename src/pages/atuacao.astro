@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoCard from '../components/InfoCard.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+
+/*
+ * Conteúdo migrado do site WordPress atual (wordpress-export/atuacao/index.html),
+ * não reescrito do zero. Ver marketing/site-bcje/ARQUITETURA-NOVO-SITE.md
+ * no workspace principal para o histórico da migração.
+ *
+ * Ajustes feitos na migração: correção de pequenos erros gramaticais do texto
+ * original (preposições e concordância) e reescrita do subtítulo do hero, que
+ * continha linguagem de resultado/superlativo ("as melhores técnicas... para
+ * trazer os melhores resultados") incompatível com o Provimento 205/2021 —
+ * ver auditoria de compliance rodada nesta página.
+ */
+
+const areas = [
+  {
+    title: 'Compliance e Regulatório',
+    description:
+      'Entendemos as especificidades dos cenários em que nossos clientes estão e, com isso, os auxiliamos na busca da conformidade regulatória e ajudamos na implementação de um programa de Compliance completo e efetivo.',
+  },
+  {
+    title: 'Direito Tributário',
+    description:
+      'Dentro da área tributária, prestamos um serviço de consultoria completa, envolvendo questões fiscais, contábeis e planejamento tributário, além de representação em litígios tanto nas esferas administrativas quanto nas judiciais.',
+  },
+  {
+    title: 'Direito Digital',
+    description:
+      'Protegemos seus interesses digitais e prestamos suporte na implementação de um programa de Privacidade e Proteção de Dados, condizente com todas as legislações em vigor, sejam elas nacionais ou internacionais.',
+  },
+  {
+    title: 'Direito Civil',
+    description:
+      'Estamos prontos para representar nossos clientes em litígios civis das mais variadas complexidades, mediar conflitos, elaborar contratos que protejam seus interesses e prestar consultoria especializada em uma ampla gama de assuntos civis.',
+  },
+  {
+    title: 'Direito Empresarial',
+    description:
+      'Oferecemos um conjunto abrangente de serviços jurídicos para empresas, incluindo consultoria na estruturação societária, fusões e aquisições, elaboração de contratos comerciais, governança corporativa e solução de litígios empresariais.',
+  },
+  {
+    title: 'Direito Penal',
+    description:
+      'Nossos serviços abrangem a representação de clientes desde as primeiras etapas da investigação, a negociação de acordos, a elaboração de estratégias de defesa sólidas e a garantia do devido processo legal em todos os aspectos do sistema criminal.',
+  },
+  {
+    title: 'Direito Imobiliário',
+    description:
+      'Oferecemos uma ampla gama de serviços especializados, incluindo assistência na compra e venda de imóveis, elaboração de contratos de locação, resolução de disputas de propriedade e assessoria em projetos de desenvolvimento imobiliário.',
+  },
+  {
+    title: 'Direito de Família',
+    description:
+      'Entendemos que as questões envolvendo relações familiares são sensíveis e por isso tratamos com o máximo de zelo questões como divórcio, guarda de filhos, pensão alimentícia, adoção, inventários e partilha de bens.',
+  },
+];
+---
+
+<BaseLayout
+  title="Atuação"
+  description="Áreas de atuação da Bertocco Consultoria Jurídica Estratégica (BCJE): compliance e regulatório, direito tributário, digital, civil, empresarial, penal, imobiliário e de família."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">Atuação</h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Atuamos com as técnicas e ferramentas adequadas a cada área do direito e à realidade de cada
+      cliente.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Conheça um pouco mais sobre
+    </p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">Áreas de Atuação</h2>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {areas.map((area) => <InfoCard title={area.title} description={area.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp heading="Ficou alguma dúvida?" />
+  </section>
+</BaseLayout>
