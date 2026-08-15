@@ -108,8 +108,9 @@ O Provimento 205/2021 do CFOAB, art. 4º, IV, exige nome do advogado (ou razão 
 
 ## O que ainda falta (fora do escopo deste scaffold)
 
-- Página `/blog` (o Header já linka para ela, mas ainda não existe). `/atuacao`, `/sobre`, `/contatos` e `/privacidade` já estão publicadas
+- Menu principal completo: `/atuacao`, `/sobre`, `/blog`, `/contatos` e `/privacidade` publicadas
 - Botão de WhatsApp flutuante (hoje só existe a seção `ContatoWhatsApp`, não um botão fixo em todas as páginas)
 - Formulário de contato em `/contatos` (function serverless + Resend, conforme `ARQUITETURA-NOVO-SITE.md`). Decisão de 09/08/2026: a página subiu só com os canais que já funcionam (endereço, telefone, e-mail, WhatsApp); formulário fica para quando a infra (Cloudflare Worker + Resend) existir
-- Migração de conteúdo: posts do blog antigo em Markdown, mais as landing pages de campanha (`defesa-execucao-fiscal` — só a versão original, `-2` e `-3` não migram — e `consultoria-tributaria-empresarial`) e `consultoria-juridica` (confirmada como LP de campanha, destino já definido)
+- Revisão jurídica de citações legais em 3 posts do blog (leis, portarias e IN da Receita Federal herdadas do conteúdo original, não reverificadas na migração — ver `ARQUITETURA-NOVO-SITE.md`)
+- Landing pages de campanha: `defesa-execucao-fiscal` (só a versão original, `-2` e `-3` não migram), `consultoria-tributaria-empresarial`, `consultoria-juridica` (destino já definido). Mais 2 LPs descobertas durante a migração do blog, ainda sem destino definido: `planejamento-tributario-area-saude`, `recuperacao-credito-tributario`
 - Ícones dos 4 cards "por que escolher uma consultoria" existiam no site original (`wp-content/uploads/2023/09/home1-icon*.png`), em tom laranja/dourado. Não foram reaproveitados porque destoam da paleta verde/cinza nova; avaliar se vale recriar em tom neutro
