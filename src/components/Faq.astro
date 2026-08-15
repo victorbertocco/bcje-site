@@ -1,0 +1,29 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="divide-y divide-bcje-mist rounded-2xl border border-bcje-mist bg-white">
+  {
+    items.map((item) => (
+      <details class="group px-6 py-5">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-bcje-ink marker:content-none">
+          {item.question}
+          <span class="shrink-0 text-bcje-accent transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p
+          class="mt-3 text-sm leading-relaxed text-bcje-graphite"
+          set:html={item.answer}
+        />
+      </details>
+    ))
+  }
+</div>

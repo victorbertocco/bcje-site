@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CtaButton from '../components/CtaButton.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+import Faq from '../components/Faq.astro';
+
+/*
+ * Landing page de campanha, migrada de wordpress-export/recuperacao-credito-tributario/.
+ * Não está no menu principal (decisão de 09/08/2026, ver ARQUITETURA-NOVO-SITE.md).
+ *
+ * Ajustes de compliance na migração (Provimento 205/2021):
+ * - H1 original ("Recupere valores pagos a mais em tributos e aumente seu caixa") era
+ *   promessa de resultado em tom imperativo; reescrito em tom informativo.
+ * - Removida menção a "diagnóstico gratuito" (honorários/captação) do subtítulo e do FAQ.
+ * - Removida divulgação de caso concreto agregado ("recuperação de até R$ 1 milhão").
+ * - Removido bloco de depoimentos de clientes (vedação absoluta).
+ * - Cards de "Vantagens" tinham chamadas imperativas ("Pague apenas o necessário",
+ *   "Regularize sua empresa"); mantido só o texto descritivo de cada card.
+ * - Formulário de captação de lead da página original não migrado: mesma decisão já
+ *   tomada para /contatos, fica para quando a infra (Cloudflare Worker + Resend) existir.
+ *   Só o WhatsApp foi mantido como canal de contato.
+ */
+const whatsappHref =
+  'https://wa.me/5511976547272?text=' +
+  encodeURIComponent(
+    'Olá! Tenho interesse em entender melhor sobre recuperação de créditos tributários e gestão de passivo fiscal para minha empresa.'
+  );
+
+const servicos = [
+  {
+    title: 'Gestão de Passivo Tributário',
+    items: [
+      'Diagnóstico completo dos débitos fiscais da empresa',
+      'Negociação de dívidas e adesão a programas de parcelamento',
+      'Redução de penalidades e encargos indevidos',
+      'Defesas administrativas e judiciais',
+    ],
+  },
+  {
+    title: 'Planejamento e Recuperação de Crédito Tributário',
+    items: [
+      'Identificação de tributos pagos indevidamente',
+      'Restituição ou compensação de créditos fiscais',
+      'Revisão de impostos como ICMS, PIS, COFINS, IRPJ, CSLL',
+      'Assessoria para manter a conformidade tributária',
+    ],
+  },
+];
+
+const vantagens = [
+  {
+    title: 'Redução Legal de Custos e Impostos Pagos',
+    description:
+      'A revisão tributária identifica impostos pagos a mais, permitindo restituições e compensações que podem contribuir para a lucratividade da empresa.',
+  },
+  {
+    title: 'Segurança Jurídica',
+    description:
+      'Uma assessoria especializada ajuda a evitar autuações e penalidades, contribuindo para a conformidade da empresa com a legislação tributária.',
+  },
+  {
+    title: 'Menos Riscos Fiscais',
+    description:
+      'Buscamos reduzir o risco de cobranças inesperadas, ajudando sua empresa a manter suas obrigações tributárias em dia.',
+  },
+  {
+    title: 'Previsibilidade Financeira',
+    description:
+      'A recuperação de créditos e a negociação de passivos podem melhorar o fluxo de caixa, contribuindo para investimentos estratégicos no negócio.',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'O que é recuperação de crédito tributário?',
+    answer:
+      'A recuperação de crédito tributário é a possibilidade de restituir ou compensar tributos pagos indevidamente ou a maior pela sua empresa. Isso pode ocorrer devido a erros na apuração, pagamento indevido ou mesmo pelo aproveitamento de benefícios fiscais previstos na legislação. Com uma análise tributária especializada, é possível identificar esses créditos e reaver os valores de forma legal e segura.',
+  },
+  {
+    question: 'Minha empresa pode recuperar impostos pagos nos últimos anos?',
+    answer:
+      'Sim. A legislação permite a recuperação de tributos pagos indevidamente nos últimos cinco anos. Isso significa que, caso sua empresa tenha recolhido impostos a mais ou indevidamente nesse período, é possível solicitar a restituição ou a compensação desses valores, reduzindo os pagamentos futuros.',
+  },
+  {
+    question: 'Quais tributos podem ser recuperados?',
+    answer:
+      'Os tributos mais comuns passíveis de recuperação incluem: <strong>ICMS</strong>, em caso de substituição tributária indevida ou créditos não aproveitados; <strong>PIS e COFINS</strong>, valores pagos a mais devido a base de cálculo incorreta ou inclusão indevida de tributos; <strong>IRPJ e CSLL</strong>, recuperação por meio de deduções fiscais ou compensações; e <strong>INSS sobre verbas indenizatórias</strong>, valores pagos indevidamente sobre determinadas verbas trabalhistas.',
+  },
+  {
+    question: 'Como saber se minha empresa tem direito à recuperação tributária?',
+    answer:
+      'O primeiro passo é uma análise tributária detalhada, avaliando a documentação fiscal da empresa e posteriormente identificando possíveis pagamentos indevidos. Em seguida, orientamos sobre o melhor caminho para recuperar os valores, seja por meio administrativo ou judicial.',
+  },
+  {
+    question: 'O que é gestão de passivo tributário?',
+    answer:
+      'Gestão de passivo tributário é a estratégia de administração e regularização das dívidas fiscais da empresa, evitando penalidades, autuações e restrições. Esse processo inclui a análise dos débitos existentes, a busca por programas de parcelamento e descontos, além da defesa contra cobranças indevidas.',
+  },
+  {
+    question: 'Minha empresa tem dívidas tributárias. É possível reduzir o valor devido?',
+    answer:
+      'Em muitos casos, é possível negociar reduções no valor da dívida. O governo frequentemente lança programas como REFIS, transações tributárias e parcelamentos especiais, que podem permitir descontos sobre multas, juros e encargos. Também é possível revisar a cobrança para verificar eventuais valores indevidos.',
+  },
+  {
+    question: 'O governo oferece programas para facilitar o pagamento de dívidas tributárias?',
+    answer:
+      'Sim. Existem programas governamentais que permitem que empresas renegociem suas dívidas com condições especiais. O REFIS (Programa de Recuperação Fiscal), por exemplo, pode possibilitar parcelamentos longos e descontos sobre encargos. Além disso, a transação tributária permite negociar diretamente com a Receita Federal, reduzindo multas e juros.',
+  },
+  {
+    question: 'O que acontece se minha empresa não regularizar os débitos tributários?',
+    answer:
+      'A inadimplência tributária pode gerar diversas consequências, como multas e juros altos, que aumentam progressivamente o valor devido; restrições bancárias, dificultando a obtenção de crédito e financiamentos; inscrição na Dívida Ativa, o que pode levar à execução fiscal e penhora de bens; impedimentos para participar de licitações públicas; e risco de responsabilização dos sócios em casos específicos.',
+  },
+  {
+    question: 'Quanto tempo leva para recuperar créditos tributários?',
+    answer:
+      'O prazo para recuperação depende do tipo de crédito e do procedimento adotado. Em alguns casos, a compensação de tributos pode ser feita administrativamente em poucos meses, enquanto processos judiciais podem levar mais tempo, dependendo da complexidade da questão e do volume de créditos envolvidos.',
+  },
+  {
+    question: 'Como iniciar o processo de recuperação ou gestão de passivos?',
+    answer:
+      'Para iniciar, basta entrar em contato com nossa equipe para uma análise preliminar da situação tributária da empresa. Após esse diagnóstico, apresentamos as estratégias possíveis para recuperar tributos pagos indevidamente ou regularizar os débitos fiscais.',
+  },
+];
+---
+
+<BaseLayout
+  title="Recuperação de Crédito Tributário"
+  description="Consultoria especializada em recuperação de créditos tributários e gestão de passivo fiscal para empresas de todos os portes, conduzida por advogados especialistas em Direito Tributário."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">
+      Recuperação de créditos tributários para empresas
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Consultoria especializada em recuperação de créditos tributários e gestão de passivo fiscal para
+      empresas de todos os portes, conduzida por advogados especialistas em Direito Tributário.
+    </p>
+    <ul class="mx-auto mt-6 max-w-xl space-y-2 text-left text-sm text-bcje-graphite">
+      <li>Mais de uma década de experiência em Direito Tributário e Empresarial.</li>
+      <li>Atendimento em todo o Brasil.</li>
+    </ul>
+    <div class="mt-8">
+      <CtaButton href={whatsappHref} external>Fale com um especialista</CtaButton>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-16 text-center">
+    <h2 class="text-2xl font-bold text-bcje-ink sm:text-3xl">
+      Sua empresa pode estar pagando mais impostos do que deveria.
+    </h2>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Muitas empresas acumulam débitos fiscais e deixam de recuperar tributos pagos indevidamente. Com
+      uma análise detalhada, podemos ajudar a reduzir a carga tributária, renegociar passivos fiscais e
+      aproveitar oportunidades de compensação tributária.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Aqui estão alguns de nossos serviços
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 pb-20">
+    <div class="grid gap-8 sm:grid-cols-2">
+      {
+        servicos.map((servico) => (
+          <div class="rounded-2xl border border-bcje-mist bg-white p-6">
+            <h3 class="text-lg font-bold text-bcje-ink">{servico.title}</h3>
+            <ul class="mt-4 space-y-2 text-sm leading-relaxed text-bcje-graphite">
+              {servico.items.map((item) => (
+                <li class="flex gap-2">
+                  <span class="text-bcje-accent">·</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">Vantagens</p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">
+      E por que contratar um escritório de advocacia especializada?
+    </h2>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {vantagens.map((v) => <InfoCard title={v.title} description={v.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-20">
+    <p class="text-center text-sm font-semibold uppercase tracking-widest text-bcje-accent">FAQ</p>
+    <h2 class="mt-2 text-center text-3xl font-bold text-bcje-ink">Perguntas Frequentes</h2>
+    <div class="mt-10">
+      <Faq items={faqItems} />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp
+      heading="Ficou alguma dúvida?"
+      description="Entre em contato e descubra o potencial de recuperação tributária da sua empresa."
+    />
+  </section>
+</BaseLayout>

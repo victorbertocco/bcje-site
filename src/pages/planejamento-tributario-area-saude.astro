@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CtaButton from '../components/CtaButton.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+import Faq from '../components/Faq.astro';
+
+/*
+ * Landing page de campanha, migrada de wordpress-export/planejamento-tributario-area-saude/.
+ * Não está no menu principal (decisão de 09/08/2026, ver ARQUITETURA-NOVO-SITE.md).
+ * Fonte original reaproveitava o template de defesa-execucao-fiscal quase sem edição:
+ * removidos na migração um bloco de depoimentos de clientes (vedação absoluta do
+ * Provimento 205/2021) e dois títulos de keyword stuffing sem relação com o conteúdo
+ * real da página. O CTA de WhatsApp também citava "defesas em execuções fiscais",
+ * corrigido para o assunto real desta página.
+ */
+const base = import.meta.env.BASE_URL;
+const whatsappHref =
+  'https://wa.me/5511976547272?text=' +
+  encodeURIComponent(
+    'Olá! Gostaria de entender melhor sobre planejamento tributário para minha clínica médica ou odontológica.'
+  );
+
+const motivos = [
+  {
+    title: 'Economia de Tempo e Recurso',
+    description:
+      'Contratar uma consultoria pode parecer um investimento inicial, mas pode gerar economia a longo prazo, ao evitar disputas e problemas jurídicos evitáveis. Quando necessário, contamos ainda com toda a estrutura e suporte para atuação no contencioso.',
+  },
+  {
+    title: 'Tomada de Decisões Embasadas',
+    description:
+      'Ter uma equipe jurídica ao seu lado significa que você pode tomar decisões estratégicas. Isso inclui a expansão para novos mercados, negociações complexas e qualquer situação que possa afetar a estrutura legal-administrativa de sua empresa.',
+  },
+  {
+    title: 'Proteção da Reputação',
+    description:
+      'Questões mal administradas podem resultar em danos à reputação da sua empresa. Uma assessoria jurídica eficiente pode ajudar a minimizar esses riscos, assegurando que sua empresa siga as melhores práticas éticas e legais.',
+  },
+  {
+    title: 'Prevenção de Riscos',
+    description:
+      'Podemos ajudá-lo a antecipar e evitar potenciais problemas legais. Ao avaliar contratos, acordos comerciais, políticas internas e regulamentos, buscamos identificar cláusulas problemáticas e contribuir para que sua empresa esteja em conformidade com as leis e regulamentações aplicáveis.',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'Como posso saber se minha clínica médica ou odontológica tem direito à redução da carga tributária?',
+    answer:
+      'Para verificar se sua clínica pode se beneficiar da redução tributária, é necessário avaliar se seus serviços se enquadram como serviços hospitalares ou equiparados, conforme definido pela legislação e jurisprudência vigente. A clínica deve ser organizada como sociedade empresária e atender às normas da ANVISA.',
+  },
+  {
+    question: 'Quais serviços são considerados "hospitalares" para fins de redução tributária?',
+    answer:
+      'Serviços hospitalares são aqueles relacionados diretamente à promoção da saúde e às atividades desenvolvidas pelos hospitais, como pequenas cirurgias, exames de imagem, análises clínicas, entre outros. Simples consultas médicas não se enquadram nesta categoria.',
+  },
+  {
+    question: 'Minha clínica pode recuperar valores pagos indevidamente nos últimos cinco anos?',
+    answer:
+      'Sim, sua clínica pode pleitear a restituição dos valores pagos indevidamente nos últimos cinco anos, desde que consiga comprovar a aplicação incorreta das alíquotas mais elevadas. Este processo pode ser feito via retificação das declarações fiscais e compensação dos valores pagos a maior.',
+  },
+  {
+    question: 'Como devo proceder para solicitar a restituição dos tributos pagos a maior?',
+    answer:
+      'Primeiro, é necessário realizar um levantamento dos valores pagos nos últimos cinco anos. Em seguida, deve-se retificar as declarações fiscais pertinentes (DCTF) e utilizar o PER/DCOMP para solicitar a restituição ou compensação dos valores pagos indevidamente.',
+  },
+  {
+    question: 'O que acontece se minha solicitação de restituição for negada administrativamente?',
+    answer:
+      'Se a solicitação de restituição for negada administrativamente, é possível ingressar com ações judiciais, como Mandado de Segurança ou ação ordinária declaratória cumulada com pedido de repetição de indébito, para assegurar o direito à restituição.',
+  },
+  {
+    question: 'Minha clínica é nova. Ainda assim, posso me beneficiar da tese de redução tributária?',
+    answer:
+      'Sim, a tese de redução tributária aplica-se a clínicas novas, desde que cumpram os requisitos legais e regulamentares, e suas atividades sejam enquadradas como serviços hospitalares ou equiparados.',
+  },
+  {
+    question: 'As clínicas odontológicas também podem se beneficiar dessa redução tributária?',
+    answer:
+      'Sim, clínicas odontológicas que prestam serviços de apoio ao diagnóstico e terapia, como radiografias, desde que segregados das consultas, podem se beneficiar das alíquotas reduzidas de IRPJ e CSLL.',
+  },
+  {
+    question: 'Quais são os benefícios de buscar a restituição dos tributos pagos indevidamente?',
+    answer:
+      'Além de recuperar valores significativos pagos a maior, a restituição permite melhorar a saúde financeira da clínica, possibilitando reinvestimentos em infraestrutura, tecnologia e serviços, contribuindo para o crescimento e desenvolvimento do negócio.',
+  },
+  {
+    question: 'E como eu faço para saber mais sobre o assunto?',
+    answer: `Você pode ler um pouco mais em nosso <a class="font-semibold text-bcje-accent hover:underline" href="${base}blog/planejamento-tributario-clinica-medica-odontologica-equiparacao/">blog</a>, onde publicamos um artigo que trata sobre o tema, ou entrar diretamente em contato conosco.`,
+  },
+];
+---
+
+<BaseLayout
+  title="Planejamento Tributário para Clínicas"
+  description="Planejamento tributário para clínicas médicas e odontológicas: equiparação a serviços hospitalares, redução de IRPJ e CSLL e restituição de tributos pagos indevidamente."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">
+      Em busca de uma assessoria jurídica para sua clínica médica ou odontológica?
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Nossa equipe atua no planejamento tributário de clínicas médicas e odontológicas, incluindo a
+      análise de equiparação a serviços hospitalares, que pode reduzir a carga tributária e viabilizar
+      a restituição de valores pagos indevidamente nos últimos cinco anos.
+    </p>
+    <p class="mt-4 text-lg leading-relaxed text-bcje-graphite">
+      A BCJE conta com advogados especialistas em Direito Tributário, com atuação voltada ao
+      planejamento tributário e fiscal de clínicas médicas e odontológicas.
+    </p>
+    <div class="mt-8">
+      <CtaButton href={whatsappHref} external>Fale com um especialista</CtaButton>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">Vantagens</p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">E por que contratar uma consultoria jurídica?</h2>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {motivos.map((motivo) => <InfoCard title={motivo.title} description={motivo.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-20">
+    <p class="text-center text-sm font-semibold uppercase tracking-widest text-bcje-accent">FAQ</p>
+    <h2 class="mt-2 text-center text-3xl font-bold text-bcje-ink">Perguntas Frequentes</h2>
+    <div class="mt-10">
+      <Faq items={faqItems} />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp
+      heading="Ficou alguma dúvida?"
+      description="Fale com a nossa equipe e entenda como essa análise pode se aplicar à sua clínica."
+    />
+  </section>
+</BaseLayout>
