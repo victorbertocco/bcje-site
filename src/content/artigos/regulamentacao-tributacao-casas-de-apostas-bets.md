@@ -33,9 +33,9 @@ As empresas do setor tiveram um prazo de seis meses para se adequar, durante o q
 
 Outro ponto de destaque na regulamentação é a obrigatoriedade do uso de tecnologia de reconhecimento facial para o cadastramento dos apostadores, conforme a Portaria nº 722, de 2 de maio de 2024. Essa medida busca garantir que apenas maiores de idade possam participar das apostas, além de facilitar a fiscalização de práticas ilegais nas plataformas.
 
-O governo também vem implementando normas voltadas à prevenção da lavagem de dinheiro, controle de riscos, jogo responsável e transparência nas operações das empresas de apostas. A Portaria nº 143/2024, por exemplo, estabelece a obrigatoriedade de as empresas de apostas avaliarem o risco de seus clientes e comunicarem atividades suspeitas ao Conselho de Controle de Atividades Financeiras (COAF). Já a Portaria nº 207/2024 especifica critérios técnicos para o funcionamento de jogos online, incluindo limites para apostas e a necessidade de informar aos usuários sobre o tempo de uso e os valores apostados e perdidos.
+O governo também vem implementando normas voltadas à prevenção da lavagem de dinheiro, controle de riscos, jogo responsável e transparência nas operações das empresas de apostas. A Portaria nº 1.143/2024, por exemplo, estabelece a obrigatoriedade de as empresas de apostas avaliarem o risco de seus clientes e comunicarem atividades suspeitas ao Conselho de Controle de Atividades Financeiras (COAF). Já a Portaria nº 1.207/2024 especifica critérios técnicos para o funcionamento de jogos online, incluindo limites para apostas e a necessidade de informar aos usuários sobre o tempo de uso e os valores apostados e perdidos.
 
-Além disso, as novas regras impõem que as empresas de apostas tenham sede no Brasil para patrocinarem equipes esportivas, e proíbem campanhas publicitárias que sugiram o jogo como forma de ascensão social, com ênfase em propagandas feitas por influenciadores digitais. A Portaria nº 233/2024 também prevê a suspensão de jogadores com risco de dependência.
+Além disso, as novas regras impõem que as empresas de apostas tenham sede no Brasil para patrocinarem equipes esportivas, e proíbem campanhas publicitárias que sugiram o jogo como forma de ascensão social, com ênfase em propagandas feitas por influenciadores digitais. A Portaria nº 1.233/2024 também prevê a suspensão de jogadores com risco de dependência.
 
 ### 3. Reflexos tributários das apostas esportivas
 
@@ -66,9 +66,9 @@ Após a destinação desses percentuais, os 82% restantes do GGR ficam com as op
 
 #### 3.2. Tributação dos ganhos dos apostadores
 
-Os ganhos obtidos pelos apostadores em plataformas de apostas também estão sujeitos à tributação, uma questão que, até recentemente, era pouco explorada devido à ausência de regulamentação específica. Com a regulamentação em vigor, os ganhos líquidos (o valor do prêmio menos o valor apostado) estão sujeitos ao Imposto de Renda Retido na Fonte (IRRF), à alíquota de 30%, respeitada a isenção de R$ 2.112.
+Os ganhos obtidos pelos apostadores em plataformas de apostas também estão sujeitos à tributação, uma questão que, até recentemente, era pouco explorada devido à ausência de regulamentação específica. O art. 31 da Lei 14.790/2023 estabelece que o prêmio líquido (resultado positivo apurado nas apostas de quota fixa realizadas ao longo do ano, após dedução das perdas com apostas de mesma natureza) é tributado pelo Imposto de Renda à alíquota de 15%, respeitada a faixa de isenção anual prevista na legislação.
 
-Essa tributação segue a mesma lógica aplicada às premiações de loterias, como a Mega-Sena. O imposto é retido diretamente pela operadora da aposta no momento do pagamento do prêmio, o que simplifica o processo de arrecadação, mas impõe uma carga tributária significativa ao apostador.
+O imposto é retido diretamente pela operadora da aposta, o que simplifica o processo de arrecadação para o apostador.
 
 Vale ressaltar que, para evitar a bitributação internacional, o Brasil mantém acordos com alguns países para mitigar o impacto do imposto de renda sobre prêmios recebidos por residentes no exterior.
 

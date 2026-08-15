@@ -40,7 +40,7 @@ O permissivo legal para essa tese está na Lei nº 9.249/95, especialmente nos a
 
 A Instrução Normativa RFB nº 1.234/2012 (artigo 30) esclarece o que se consideram serviços hospitalares: aqueles relacionados às atividades realizadas por hospitais, focadas diretamente na promoção da saúde, prestados por estabelecimentos assistenciais de saúde que executam as atividades definidas nas atribuições 1 a 4 da Resolução RDC nº 50, de 21 de fevereiro de 2002, da Anvisa.
 
-O Superior Tribunal de Justiça já se manifestou no sentido de que consultas médicas simples não podem ser consideradas serviços hospitalares, cabendo nesses casos a presunção da base de cálculo de 32%.
+O Superior Tribunal de Justiça, em julgamento de recursos repetitivos (Tema 217, REsp 1.116.399/BA), já se manifestou no sentido de que consultas médicas simples não podem ser consideradas serviços hospitalares, cabendo nesses casos a presunção da base de cálculo de 32%.
 
 Além da redução na carga tributária, esse tipo de planejamento tributário também pode viabilizar a restituição de valores pagos indevidamente nos últimos cinco anos. Essa possibilidade surge da análise detalhada dos recolhimentos feitos a título de IRPJ e CSLL, quando se identifica a aplicação de alíquotas mais elevadas do que as aplicáveis a serviços hospitalares.
 
