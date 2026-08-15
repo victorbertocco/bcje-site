@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+
+const areaLabels: Record<string, string> = {
+  tributario: 'Direito Tributário',
+  empresarial: 'Direito Empresarial',
+  digital: 'Direito Digital e LGPD',
+  imobiliario: 'Direito Imobiliário',
+  familia: 'Direito de Família',
+  penal: 'Direito Penal',
+  compliance: 'Compliance e Regulatório',
+};
+
+const posts = (await getCollection('artigos', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title="Blog"
+  description="Artigos e análises jurídicas da Bertocco Consultoria Jurídica Estratégica (BCJE): tributário, empresarial, digital, imobiliário, família, penal e compliance."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">Blog</h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Análises e conteúdo informativo sobre direito tributário, empresarial, digital e demais
+      áreas de atuação.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 pb-20">
+    {
+      posts.length === 0 ? (
+        <p class="text-center text-bcje-graphite">Em breve, novos artigos.</p>
+      ) : (
+        <div class="grid gap-6 sm:grid-cols-2">
+          {posts.map((post) => (
+            <a
+              href={`${base}blog/${post.id}/`}
+              class="group block rounded-2xl border border-bcje-mist bg-white p-6 transition-colors hover:border-bcje-accent"
+            >
+              <p class="text-xs font-semibold uppercase tracking-widest text-bcje-accent">
+                {areaLabels[post.data.area]}
+              </p>
+              <h2 class="mt-2 text-lg font-bold text-bcje-ink">{post.data.title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-bcje-graphite">{post.data.description}</p>
+              <p class="mt-4 text-xs text-bcje-steel">{formatDate(post.data.publishDate)}</p>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

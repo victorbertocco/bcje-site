@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+const areaLabels: Record<string, string> = {
+  tributario: 'Direito Tributário',
+  empresarial: 'Direito Empresarial',
+  digital: 'Direito Digital e LGPD',
+  imobiliario: 'Direito Imobiliário',
+  familia: 'Direito de Família',
+  penal: 'Direito Penal',
+  compliance: 'Compliance e Regulatório',
+};
+
+export async function getStaticPaths() {
+  const posts = await getCollection('artigos', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'artigos'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      {areaLabels[post.data.area]}
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">{post.data.title}</h1>
+    <p class="mt-4 text-sm text-bcje-steel">
+      {formatDate(post.data.publishDate)} · {post.data.autor}
+    </p>
+    <div class="prose prose-neutral mt-10 max-w-none prose-headings:text-bcje-ink prose-a:text-bcje-accent prose-strong:text-bcje-ink">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
