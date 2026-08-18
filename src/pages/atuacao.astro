@@ -2,6 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InfoCard from '../components/InfoCard.astro';
 import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+import compliance from '../assets/atuacao/compliance.webp';
+import tributario from '../assets/atuacao/tributario.webp';
+import digital from '../assets/atuacao/digital.webp';
+import civil from '../assets/atuacao/civil.webp';
+import empresarial from '../assets/atuacao/empresarial.webp';
+import penal from '../assets/atuacao/penal.webp';
+import imobiliario from '../assets/atuacao/imobiliario.webp';
+import familia from '../assets/atuacao/familia.webp';
 
 /*
  * Conteúdo migrado do site WordPress atual (wordpress-export/atuacao/index.html),
@@ -20,41 +28,49 @@ const areas = [
     title: 'Compliance e Regulatório',
     description:
       'Entendemos as especificidades dos cenários em que nossos clientes estão e, com isso, os auxiliamos na busca da conformidade regulatória e ajudamos na implementação de um programa de Compliance completo e efetivo.',
+    image: compliance,
   },
   {
     title: 'Direito Tributário',
     description:
       'Dentro da área tributária, prestamos um serviço de consultoria completa, envolvendo questões fiscais, contábeis e planejamento tributário, além de representação em litígios tanto nas esferas administrativas quanto nas judiciais.',
+    image: tributario,
   },
   {
     title: 'Direito Digital',
     description:
       'Protegemos seus interesses digitais e prestamos suporte na implementação de um programa de Privacidade e Proteção de Dados, condizente com todas as legislações em vigor, sejam elas nacionais ou internacionais.',
+    image: digital,
   },
   {
     title: 'Direito Civil',
     description:
       'Estamos prontos para representar nossos clientes em litígios civis das mais variadas complexidades, mediar conflitos, elaborar contratos que protejam seus interesses e prestar consultoria especializada em uma ampla gama de assuntos civis.',
+    image: civil,
   },
   {
     title: 'Direito Empresarial',
     description:
       'Oferecemos um conjunto abrangente de serviços jurídicos para empresas, incluindo consultoria na estruturação societária, fusões e aquisições, elaboração de contratos comerciais, governança corporativa e solução de litígios empresariais.',
+    image: empresarial,
   },
   {
     title: 'Direito Penal',
     description:
       'Nossos serviços abrangem a representação de clientes desde as primeiras etapas da investigação, a negociação de acordos, a elaboração de estratégias de defesa sólidas e a garantia do devido processo legal em todos os aspectos do sistema criminal.',
+    image: penal,
   },
   {
     title: 'Direito Imobiliário',
     description:
       'Oferecemos uma ampla gama de serviços especializados, incluindo assistência na compra e venda de imóveis, elaboração de contratos de locação, resolução de disputas de propriedade e assessoria em projetos de desenvolvimento imobiliário.',
+    image: imobiliario,
   },
   {
     title: 'Direito de Família',
     description:
       'Entendemos que as questões envolvendo relações familiares são sensíveis e por isso tratamos com o máximo de zelo questões como divórcio, guarda de filhos, pensão alimentícia, adoção, inventários e partilha de bens.',
+    image: familia,
   },
 ];
 ---
@@ -83,7 +99,11 @@ const areas = [
 
   <section class="mx-auto max-w-6xl px-6 pb-20">
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {areas.map((area) => <InfoCard title={area.title} description={area.description} />)}
+      {
+        areas.map((area) => (
+          <InfoCard title={area.title} description={area.description} image={area.image} />
+        ))
+      }
     </div>
   </section>
 

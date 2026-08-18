@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { blogImages } from '../../lib/blogImages';
 
 const areaLabels: Record<string, string> = {
   tributario: 'Direito Tributário',
@@ -41,6 +43,15 @@ const formatDate = (d: Date) =>
     <p class="mt-4 text-sm text-bcje-steel">
       {formatDate(post.data.publishDate)} · {post.data.autor}
     </p>
+    {blogImages[post.id] && (
+      <Image
+        src={blogImages[post.id]}
+        alt=""
+        width={1200}
+        height={675}
+        class="mt-8 h-auto w-full rounded-2xl object-cover"
+      />
+    )}
     <div class="prose prose-neutral mt-10 max-w-none prose-headings:text-bcje-ink prose-a:text-bcje-accent prose-strong:text-bcje-ink">
       <Content />
     </div>

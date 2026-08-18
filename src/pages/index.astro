@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import InfoCard from '../components/InfoCard.astro';
 import CtaButton from '../components/CtaButton.astro';
 import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+import IconBadge from '../components/IconBadge.astro';
 
 /*
  * Conteúdo migrado do site WordPress atual (wordpress-export/index.html),
@@ -13,21 +14,25 @@ const base = import.meta.env.BASE_URL;
 
 const motivos = [
   {
+    icon: 'economia' as const,
     title: 'Economia de Tempo e Recurso',
     description:
       'Contratar uma consultoria pode parecer um investimento inicial, mas pode gerar economia a longo prazo, ao evitar disputas e problemas jurídicos evitáveis. Quando necessário, contamos ainda com toda a estrutura e suporte para atuação no contencioso.',
   },
   {
+    icon: 'decisao' as const,
     title: 'Tomada de Decisões Embasadas',
     description:
       'Ter uma equipe jurídica ao seu lado significa que você pode tomar decisões estratégicas. Isso inclui a expansão para novos mercados, negociações complexas e qualquer situação que possa afetar a estrutura legal-administrativa de sua empresa.',
   },
   {
+    icon: 'reputacao' as const,
     title: 'Proteção da Reputação',
     description:
       'Questões mal administradas podem resultar em danos à reputação da sua empresa. Uma assessoria jurídica eficiente pode ajudar a minimizar esses riscos, assegurando que sua empresa siga as melhores práticas éticas e legais.',
   },
   {
+    icon: 'prevencao' as const,
     title: 'Prevenção de Riscos',
     description:
       'Podemos ajudá-lo a antecipar e evitar potenciais problemas legais. Ao avaliar contratos, acordos comerciais, políticas internas e regulamentos, buscamos identificar cláusulas problemáticas e contribuir para que sua empresa esteja em conformidade com as leis e regulamentações aplicáveis.',
@@ -63,7 +68,13 @@ const motivos = [
 
   <section class="mx-auto max-w-6xl px-6 pb-20">
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {motivos.map((motivo) => <InfoCard title={motivo.title} description={motivo.description} />)}
+      {
+        motivos.map((motivo) => (
+          <InfoCard title={motivo.title} description={motivo.description}>
+            <IconBadge slot="icon" name={motivo.icon} />
+          </InfoCard>
+        ))
+      }
     </div>
   </section>
 

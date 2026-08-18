@@ -1,0 +1,48 @@
+---
+/*
+ * Ícones da Home ("por que escolher uma consultoria"), redesenhados em
+ * tom neutro (bcje-accent) para substituir o conjunto original em
+ * laranja/dourado (wp-content/uploads/2023/09/home1-icon*.png), que
+ * destoava da paleta verde/cinza do site novo.
+ */
+interface Props {
+  name: 'economia' | 'decisao' | 'reputacao' | 'prevencao';
+}
+
+const { name } = Astro.props;
+---
+
+<span class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bcje-fog text-bcje-accent">
+  {
+    name === 'economia' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6">
+        <circle cx="12" cy="12" r="9" />
+        <path stroke-linecap="round" d="M9.5 15c0 .83 1.12 1.5 2.5 1.5s2.5-.67 2.5-1.5-1.12-1.4-2.5-1.4-2.5-.57-2.5-1.4S10.62 11 12 11s2.5.67 2.5 1.5M12 9.3V11m0 5.5v1.2" />
+      </svg>
+    )
+  }
+  {
+    name === 'decisao' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17M8 5.5l4-1.5 4 1.5M5 9l2.5 5.5a2.5 2.5 0 0 0 5 0L10 9M13 9l2.5 5.5a2.5 2.5 0 0 0 5 0L18 9" />
+      </svg>
+    )
+  }
+  {
+    name === 'reputacao' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l6.5 2.6V11c0 4.6-2.9 7.7-6.5 8.9-3.6-1.2-6.5-4.3-6.5-8.9V6.1L12 3.5z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4.2" />
+      </svg>
+    )
+  }
+  {
+    name === 'prevencao' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l6.5 2.6V11c0 4.6-2.9 7.7-6.5 8.9-3.6-1.2-6.5-4.3-6.5-8.9V6.1L12 3.5z" />
+        <path stroke-linecap="round" d="M12 8.5v4" />
+        <circle cx="12" cy="15" r="0.75" fill="currentColor" stroke="none" />
+      </svg>
+    )
+  }
+</span>
