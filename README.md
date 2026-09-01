@@ -45,7 +45,7 @@ npm run preview   # serve o build de produção localmente
 bcje-site/
 ├── .github/workflows/deploy.yml   deploy automático no GitHub Pages a cada push na main
 ├── public/
-│   ├── CNAME.disabled              domínio customizado (bcje.com.br), desativado temporariamente
+│   ├── CNAME                       domínio customizado (bcje.com.br)
 │   ├── logo-bcje.png              logo oficial, reaproveitada do site WordPress
 │   └── favicon.png
 ├── src/
@@ -80,21 +80,17 @@ Antes de publicar (`draft: false`), rodar a skill `auditoria-compliance-oab` do 
 
 Push na branch `main` dispara o workflow `.github/workflows/deploy.yml`, que builda o site e publica no GitHub Pages.
 
-### Estado atual: TEMPORÁRIO, sem domínio customizado ativo
+### Migração de DNS para `bcje.com.br` (01/09/2026)
 
-O primeiro deploy em `bcje.com.br` real quebrou o CSS: `astro.config.mjs` tinha `base: '/'` (correto só para domínio customizado), mas sem o DNS apontado o site fica acessível apenas na URL provisória `https://victorbertocco.github.io/bcje-site/`, que exige todo asset prefixado com `/bcje-site/`. Todo `href`/`src` root-relative (CSS, logo, favicon) dava 404.
+`astro.config.mjs` (`base: '/'`) e `public/CNAME` já preparados para o domínio customizado. Faltam os passos externos, fora do repo:
 
-Enquanto o DNS não for migrado, o projeto fica configurado assim:
+1. Na Hostinger (ou onde o DNS estiver hospedado), apontar `bcje.com.br`:
+   - 4 registros **A** no domínio raiz para os IPs do GitHub Pages: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - Registro **CNAME** de `www` para `victorbertocco.github.io`
+2. Em Settings → Pages do repo, confirmar o domínio customizado `bcje.com.br` e aguardar a emissão do certificado HTTPS (pode levar algumas horas)
+3. Só depois disso desativar a hospedagem WordPress antiga (Hostinger), para não haver período de domínio fora do ar
 
-- `astro.config.mjs`: `base: '/bcje-site/'`
-- `public/CNAME.disabled` (renomeado de `public/CNAME`, GitHub Pages só reconhece o nome exato `CNAME`)
-
-**Para migrar de fato para `bcje.com.br`**, num commit dedicado "prep para migração DNS":
-
-1. `astro.config.mjs`: `base: '/'`
-2. `public/CNAME.disabled` → `public/CNAME`
-3. Na Hostinger (ou onde o DNS estiver hospedado): registros **A** no domínio raiz apontando para os IPs do GitHub Pages, registro **CNAME** de `www` apontando para `<usuario>.github.io`
-4. Confirmar em Settings → Pages do repo que o domínio customizado foi aceito e o certificado HTTPS foi emitido
+Até a propagação de DNS completar, o site também segue acessível em `https://victorbertocco.github.io/bcje-site/`.
 
 ## Identificação profissional (OAB)
 
