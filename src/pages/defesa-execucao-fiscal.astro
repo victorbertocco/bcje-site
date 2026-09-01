@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CtaButton from '../components/CtaButton.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+import Faq from '../components/Faq.astro';
+
+/*
+ * Landing page de campanha, migrada de wordpress-export/defesa-execucao-fiscal/.
+ * Não está no menu principal (decisão de 09/08/2026, ver ARQUITETURA-NOVO-SITE.md).
+ *
+ * Ajustes de compliance na migração (Provimento 205/2021):
+ * - H1 original ("Pare a Execução Fiscal e Preserve Seus Bens") era comando imperativo
+ *   com promessa implícita de resultado (preservação garantida do patrimônio); reescrito
+ *   em tom informativo.
+ * - Texto "Nossa equipe está pronta para analisar o seu caso e construir a melhor defesa"
+ *   e "utilizando os melhores recursos legais" usavam superlativo ("a melhor", "os
+ *   melhores"); ajustado para "uma defesa consistente" e "os recursos legais cabíveis".
+ * - Botão original "FALE AGORA COM UM ESPECIALISTA" (imperativo com urgência artificial
+ *   via "agora"); mantido só "Fale com um especialista", padrão já usado nas outras LPs.
+ * - Removido bloco solto de palavras-chave logo abaixo do subtítulo do hero ("defesa
+ *   contra execução fiscal / advogado especialista / penhora / Soluções / Propriedade
+ *   Intelectual / Surpreendidoi") — keyword stuffing sem relação com o conteúdo real,
+ *   incluindo termo sem sentido para a página ("Propriedade Intelectual") e erro de
+ *   digitação ("Surpreendidoi").
+ * - Removido h2 de keyword stuffing antes da seção de contato ("execucao fiscal penhora,
+ *   defesa execucao fiscal, defesa tributaria, defesa em processo de execução fiscal,
+ *   advogado especialista em execução fiscal, defesa em execucao fiscal").
+ * - Removido bloco de depoimentos/avaliações do Google (widget Trustindex, seção
+ *   #depoimentos) — vedação absoluta a depoimentos de clientes.
+ * - Removido bloco de contato com mapa incorporado, e-mail, telefone e endereço em
+ *   destaque — mesma decisão estrutural das outras LPs: só o WhatsApp como canal,
+ *   via CtaButton e ContatoWhatsApp.
+ * - CTA final original trazia a frase genérica de template "Desbloqueie infinitas novas
+ *   possibilidades!", sem relação com o conteúdo da página; substituída por descrição
+ *   adequada ao tema (defesa em execução fiscal).
+ * - Formulário de captação de lead da página original não migrado: mesma decisão já
+ *   tomada para /contatos, fica para quando a infra (Cloudflare Worker + Resend) existir.
+ */
+const whatsappHref =
+  'https://wa.me/5511976547272?text=' +
+  encodeURIComponent(
+    'Olá! Gostaria de entender um pouco mais sobre como funcionam as defesas em execuções fiscais.'
+  );
+
+const atuacao = [
+  {
+    title: 'Análise Imediata do Caso',
+    description:
+      'Ao receber a cobrança, é essencial verificar sua legalidade. Nossa equipe revisa detalhadamente a notificação para identificar possíveis cobranças indevidas, prescrição da dívida ou erros administrativos que possam anular ou reduzir o valor exigido.',
+  },
+  {
+    title: 'Defesa Personalizada',
+    description:
+      'Cada caso é único, e sua defesa também deve ser. Desenvolvemos estratégias jurídicas específicas para sua situação, utilizando os recursos legais cabíveis para suspender a execução, contestar valores e buscar a solução mais adequada.',
+  },
+  {
+    title: 'Negociação Direta',
+    description:
+      'Em muitos casos, é possível renegociar a dívida diretamente com os órgãos fiscais. Atuamos na mediação para obter parcelamentos, reduções ou condições mais favoráveis de pagamento, minimizando impactos financeiros e evitando medidas como penhora de bens.',
+  },
+  {
+    title: 'Acompanhamento Integral',
+    description:
+      'Não importa a fase do processo, estaremos com você do início ao fim. Monitoramos cada etapa da execução fiscal, buscando que seus direitos sejam respeitados e um desfecho adequado à sua situação.',
+  },
+];
+
+const vantagens = [
+  {
+    title: 'Prevenção de Riscos',
+    description:
+      'Oferecemos ajuda para evitar problemas legais ao analisar contratos, regulamentos e políticas internas, identificando cláusulas problemáticas e contribuindo para a conformidade com as leis.',
+  },
+  {
+    title: 'Tomada de Decisões Embasadas',
+    description:
+      'Ter uma equipe jurídica permite tomar decisões estratégicas com base em análises legais sólidas, como expandir para novos mercados e lidar com negociações complexas.',
+  },
+  {
+    title: 'Proteção da Reputação',
+    description:
+      'A assessoria jurídica eficiente ajuda a evitar danos à reputação, contribuindo para práticas éticas, legais e em conformidade com a regulamentação.',
+  },
+  {
+    title: 'Economia de Tempo e Recursos',
+    description:
+      'Investir em uma consultoria pode gerar economia a longo prazo, evitando disputas legais custosas e excessivamente longas, além de auxiliar na resolução de conflitos na esfera administrativa. Quando necessário, também atuamos no contencioso.',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'O que é uma Execução Fiscal?',
+    answer:
+      'Uma Execução Fiscal é um procedimento judicial utilizado pela Administração Pública para cobrar dívidas fiscais não pagas. Geralmente, envolve débitos relacionados a tributos, como impostos e taxas.',
+  },
+  {
+    question: 'Quais são as etapas de uma Execução Fiscal?',
+    answer:
+      'As etapas incluem a inscrição do débito na dívida ativa, a citação do devedor, a possibilidade de defesa, a penhora de bens, leilão e, por fim, a satisfação do crédito.',
+  },
+  {
+    question: 'Posso contestar uma Execução Fiscal?',
+    answer:
+      'Sim, é possível contestar uma Execução Fiscal. O devedor tem o direito de apresentar defesa, alegando irregularidades no processo, prescrição ou pagamento do débito.',
+  },
+  {
+    question: 'Quais são as consequências da não quitação de uma dívida fiscal?',
+    answer:
+      'A não quitação de uma dívida fiscal pode resultar em penhora de bens, bloqueio de contas bancárias e até mesmo a inclusão do nome do devedor nos órgãos de proteção ao crédito.',
+  },
+  {
+    question: 'Quais são os prazos para apresentar defesa em uma Execução Fiscal?',
+    answer:
+      'Os prazos podem variar, mas geralmente, o devedor tem um prazo específico após a citação para apresentar sua defesa. É crucial observar e cumprir esses prazos para evitar prejuízos.',
+  },
+  {
+    question: 'Como posso negociar uma dívida fiscal antes de uma Execução Fiscal ser instaurada?',
+    answer:
+      'É possível buscar acordos de parcelamento ou até mesmo a remissão da dívida através de programas de recuperação fiscal oferecidos pelos órgãos competentes.',
+  },
+  {
+    question: 'Quais são os tipos de bens passíveis de penhora em uma Execução Fiscal?',
+    answer:
+      'Diversos bens podem ser penhorados, incluindo imóveis, veículos, saldos bancários e outros ativos do devedor. A escolha dependerá da viabilidade de garantir o pagamento do débito.',
+  },
+  {
+    question: 'O que é a Certidão de Dívida Ativa (CDA)?',
+    answer:
+      'A Certidão de Dívida Ativa é o documento que formaliza a existência da dívida fiscal e é necessária para a propositura da Execução Fiscal. Contém informações detalhadas sobre o débito.',
+  },
+  {
+    question: 'Como posso buscar a suspensão de uma Execução Fiscal?',
+    answer:
+      'A suspensão da Execução Fiscal pode ocorrer mediante apresentação de garantias, como seguro-garantia, fiança bancária ou depósito judicial, além de outras situações previstas em lei.',
+  },
+  {
+    question: 'O que devo fazer se receber uma notificação de Execução Fiscal?',
+    answer:
+      'Ao receber uma notificação, é importante buscar orientação jurídica imediatamente. Avaliar a regularidade do débito e adotar as medidas adequadas é fundamental para proteger seus interesses.',
+  },
+];
+---
+
+<BaseLayout
+  title="Defesa Contra Execução Fiscal"
+  description="Defesa em execução fiscal para empresas e pessoas físicas notificadas: análise da Certidão de Dívida Ativa, estratégias de defesa e negociação de débitos com os órgãos fiscais."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">
+      Defesa contra execução fiscal
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Foi notificado? Uma análise imediata e uma defesa personalizada ajudam a evitar penhoras e
+      surpresas desagradáveis.
+    </p>
+    <div class="mt-8">
+      <CtaButton href={whatsappHref} external>Fale com um especialista</CtaButton>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-16 text-center">
+    <h2 class="text-2xl font-bold text-bcje-ink sm:text-3xl">Defesa Contra Execução Fiscal</h2>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Se você recebeu uma notificação de execução fiscal, agir rápido pode fazer toda a diferença.
+      Nossa equipe está pronta para analisar o seu caso e construir uma defesa consistente para
+      proteger seu patrimônio e seus direitos.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2">
+      {atuacao.map((item) => <InfoCard title={item.title} description={item.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">Vantagens</p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">
+      E por que contratar um escritório de advocacia?
+    </h2>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {vantagens.map((v) => <InfoCard title={v.title} description={v.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-20">
+    <p class="text-center text-sm font-semibold uppercase tracking-widest text-bcje-accent">FAQ</p>
+    <h2 class="mt-2 text-center text-3xl font-bold text-bcje-ink">Perguntas Frequentes</h2>
+    <div class="mt-10">
+      <Faq items={faqItems} />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp
+      heading="Ficou alguma dúvida?"
+      description="Entre em contato e entenda como podemos atuar na defesa do seu caso de execução fiscal."
+    />
+  </section>
+</BaseLayout>

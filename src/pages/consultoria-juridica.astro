@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CtaButton from '../components/CtaButton.astro';
+import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+
+/*
+ * Landing page de campanha, migrada de wordpress-export/consultoria-juridica/.
+ * Não está no menu principal (decisão de 09/08/2026, ver ARQUITETURA-NOVO-SITE.md).
+ *
+ * Ajustes de compliance e de fidelidade na migração (Provimento 205/2021):
+ * - Removido bloco de depoimentos de clientes com nome, foto e avaliação (widget
+ *   Trustindex/Google Reviews) — vedação absoluta de depoimentos.
+ * - O CTA de WhatsApp do original ("Olá! Gostaria de entender um pouco mais sobre
+ *   como funcionam as defesas em execuções fiscais.") era mensagem de outra campanha
+ *   (execução fiscal), sem relação com o conteúdo real desta página (consultoria
+ *   jurídica geral). Reescrita para o assunto real da página.
+ * - Removido bloco de heading com keyword stuffing sem relação direta com o
+ *   conteúdo ("defesa contra execução fiscal / advogado especialista / penhora /
+ *   Soluções / Propriedade Intelectual / Surpreendidoi" — inclusive com erro de
+ *   digitação), técnica de SEO da página antiga não replicada no site novo.
+ * - Removida a frase "Clique no botão abaixo e entenda melhor como podemos te
+ *   ajudar!" do texto de abertura, redundante com o CtaButton logo abaixo (mesmo
+ *   padrão das outras LPs já migradas).
+ * - Botões "FALE AGORA COM UM ESPECIALISTA" (caixa alta, tom imperativo de urgência)
+ *   normalizados para "Fale com um especialista", conforme padrão do site novo.
+ * - Seção de contato final: descrição original ("Desbloqueie infinitas novas
+ *   possibilidades!") era frase vaga de efeito, próxima de promessa genérica de
+ *   resultado; substituída por texto informativo sobre o próprio atendimento.
+ * - Página original não tinha seção de FAQ — nenhuma pergunta foi inventada; a
+ *   seção foi simplesmente omitida (sem import do componente Faq).
+ * - Seções "Sobre a BCJE" e "Áreas de Atuação" do original não têm componente
+ *   equivalente pronto (InfoCard cobre "Áreas de Atuação"); "Sobre" foi resolvida
+ *   com uma section/div simples em Tailwind, sem criar novo componente.
+ * - Formulário de captação de lead da página original não migrado: mesma decisão já
+ *   tomada para /contatos, fica para quando a infra (Cloudflare Worker + Resend)
+ *   existir. Só o WhatsApp foi mantido como canal de contato.
+ */
+const whatsappHref =
+  'https://wa.me/5511976547272?text=' +
+  encodeURIComponent(
+    'Olá! Estou em busca de uma assessoria jurídica para mim/minha empresa e gostaria de entender melhor como a BCJE pode ajudar.'
+  );
+
+const vantagens = [
+  {
+    title: 'Prevenção de Riscos',
+    description:
+      'Ajudamos a evitar problemas legais ao analisar contratos, regulamentos e políticas internas, identificando cláusulas problemáticas e buscando conformidade com as leis.',
+  },
+  {
+    title: 'Tomada de Decisões Embasadas',
+    description:
+      'Ter uma equipe jurídica ao lado permite tomar decisões estratégicas com base em análises legais sólidas, como expansão para novos mercados e negociações complexas.',
+  },
+  {
+    title: 'Proteção da Reputação',
+    description:
+      'Uma assessoria jurídica eficiente ajuda a reduzir riscos de danos à reputação, contribuindo para práticas éticas, legais e em conformidade regulatória.',
+  },
+  {
+    title: 'Economia de Tempo e Recursos',
+    description:
+      'Investir em uma consultoria pode contribuir para economias a longo prazo, ajudando a evitar disputas legais custosas e longas, e auxiliando na resolução de conflitos na esfera administrativa. Quando necessário, contamos com estrutura para atuação no contencioso.',
+  },
+];
+
+const areasAtuacao = [
+  {
+    title: 'Compliance e Regulatório',
+    description:
+      'Auxiliamos na busca pela conformidade regulatória e na implementação de programas de Compliance completos e efetivos, considerando as especificidades de cada cliente.',
+  },
+  {
+    title: 'Direito Tributário',
+    description:
+      'Consultoria envolvendo questões fiscais e contábeis, planejamento tributário e representação em litígios nas esferas administrativa e judicial.',
+  },
+  {
+    title: 'Direito Digital',
+    description:
+      'Suporte na implementação de programa de Privacidade e Proteção de Dados, alinhado às legislações nacionais e internacionais em vigor.',
+  },
+  {
+    title: 'Direito Civil',
+    description:
+      'Representação em litígios civis de diferentes complexidades, mediação de conflitos, elaboração de contratos e consultoria em ampla gama de assuntos civis.',
+  },
+  {
+    title: 'Direito Empresarial',
+    description:
+      'Consultoria em estruturação societária, fusões e aquisições, elaboração de contratos comerciais, governança corporativa e solução de litígios empresariais.',
+  },
+  {
+    title: 'Direito Penal',
+    description:
+      'Representação de clientes desde as primeiras etapas da investigação, negociação de acordos, elaboração de estratégias de defesa e observância do devido processo legal.',
+  },
+  {
+    title: 'Direito Imobiliário',
+    description:
+      'Assistência na compra e venda de imóveis, elaboração de contratos de locação, resolução de disputas de propriedade e assessoria em projetos imobiliários.',
+  },
+  {
+    title: 'Direito de Família',
+    description:
+      'Tratamento cuidadoso de questões como divórcio, guarda de filhos, pensão alimentícia, adoção, inventários e partilha de bens.',
+  },
+];
+---
+
+<BaseLayout
+  title="Consultoria Jurídica"
+  description="Assessoria jurídica consultiva e contenciosa para pessoas físicas e empresas, nas áreas de Direito Tributário, Digital, Civil, Empresarial, Penal, Imobiliário e de Família."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">
+      Bertocco Consultoria Jurídica Estratégica
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-bcje-ink sm:text-4xl">
+      Em busca de uma assessoria jurídica para você ou sua empresa?
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed text-bcje-graphite">
+      Nossa equipe pode ajudar você a defender seus direitos e evitar ser surpreendido por ações
+      indesejadas.
+    </p>
+    <p class="mt-4 text-lg leading-relaxed text-bcje-graphite">
+      A BCJE atua tanto de maneira consultiva quanto contenciosa nas áreas de <strong
+        >Direito Tributário, Direito Digital, Privacidade e Proteção de Dados (LGPD), Direito
+        Civil, Direito Penal</strong
+      > entre outras. Estamos à disposição para orientações e esclarecimentos.
+    </p>
+    <div class="mt-8">
+      <CtaButton href={whatsappHref} external>Fale com um especialista</CtaButton>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">Vantagens</p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">
+      E por que contratar um escritório de advocacia ou uma consultoria jurídica?
+    </h2>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {vantagens.map((v) => <InfoCard title={v.title} description={v.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl rounded-3xl bg-bcje-mist/40 px-6 py-16">
+    <div class="mx-auto grid max-w-5xl items-center gap-10 sm:grid-cols-2">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">Sobre</p>
+        <h2 class="mt-2 text-2xl font-bold text-bcje-ink sm:text-3xl">A BCJE</h2>
+        <p class="mt-4 text-base leading-relaxed text-bcje-graphite">
+          A Bertocco Consultoria Jurídica Estratégica é uma consultoria jurídica completa, com
+          soluções para diversas áreas do direito, tanto no consultivo quanto no contencioso.
+          Priorizamos relacionamentos sólidos com nossos clientes, comunicação aberta e
+          transparência. Atendemos as necessidades legais de pessoas físicas e jurídicas,
+          incluindo processos judiciais, elaboração de contratos, pareceres jurídicos e
+          conformidade regulatória.
+        </p>
+      </div>
+      <div class="text-center sm:text-left">
+        <CtaButton href={whatsappHref} external>Entre em contato</CtaButton>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-8 pt-16 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-bcje-accent">Atuação</p>
+    <h2 class="mt-2 text-3xl font-bold text-bcje-ink">
+      Conheça algumas de nossas áreas de atuação
+    </h2>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {areasAtuacao.map((a) => <InfoCard title={a.title} description={a.description} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ContatoWhatsApp
+      heading="Ficou alguma dúvida?"
+      description="Fale com a nossa equipe e entenda como a assessoria jurídica da BCJE pode atender você ou sua empresa."
+    />
+  </section>
+</BaseLayout>
