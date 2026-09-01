@@ -1,11 +1,10 @@
-name = "bcje-site-contato"
+name = "bcje-contato-form"
 main = "src/index.ts"
 compatibility_date = "2026-09-01"
 
-# Preenchido por `npx wrangler kv namespace create RATE_LIMIT`
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id = ""
+id = "b2ad15d03fbd4a0c9ef7473b1ffd3a99"
 
 [vars]
 ALLOWED_ORIGINS = "https://bcje.com.br,https://www.bcje.com.br,http://localhost:4321"
