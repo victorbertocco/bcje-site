@@ -24,6 +24,8 @@ jobs:
         uses: withastro/action@v6
         with:
           node-version: "22"
+        env:
+          PUBLIC_CONTACT_ENDPOINT: ${{ vars.PUBLIC_CONTACT_ENDPOINT }}
 
   deploy:
     needs: build

@@ -1,0 +1,123 @@
+---
+/*
+ * Formulário de contato. Envia via fetch POST para o Cloudflare Worker
+ * (worker/), que valida e dispara o e-mail via Resend. URL do worker vem de
+ * PUBLIC_CONTACT_ENDPOINT (variável pública do Astro, ver .env.example).
+ *
+ * Campo `empresa_site` é honeypot: fica fora da tela e sem tabindex; se vier
+ * preenchido, é bot. O Worker descarta o envio silenciosamente nesse caso.
+ */
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+---
+
+<form id="contact-form" class="space-y-5" novalidate>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="nome" class="block text-sm font-medium text-bcje-ink">Nome</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        required
+        maxlength="200"
+        class="mt-1 w-full rounded-lg border border-bcje-mist px-4 py-2.5 text-sm text-bcje-ink focus:border-bcje-accent focus:outline-none focus:ring-1 focus:ring-bcje-accent"
+      />
+    </div>
+    <div>
+      <label for="email" class="block text-sm font-medium text-bcje-ink">E-mail</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        maxlength="200"
+        class="mt-1 w-full rounded-lg border border-bcje-mist px-4 py-2.5 text-sm text-bcje-ink focus:border-bcje-accent focus:outline-none focus:ring-1 focus:ring-bcje-accent"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="telefone" class="block text-sm font-medium text-bcje-ink">Telefone (opcional)</label>
+    <input
+      type="tel"
+      id="telefone"
+      name="telefone"
+      maxlength="50"
+      class="mt-1 w-full rounded-lg border border-bcje-mist px-4 py-2.5 text-sm text-bcje-ink focus:border-bcje-accent focus:outline-none focus:ring-1 focus:ring-bcje-accent"
+    />
+  </div>
+
+  <div>
+    <label for="mensagem" class="block text-sm font-medium text-bcje-ink">Mensagem</label>
+    <textarea
+      id="mensagem"
+      name="mensagem"
+      required
+      maxlength="5000"
+      rows="5"
+      class="mt-1 w-full rounded-lg border border-bcje-mist px-4 py-2.5 text-sm text-bcje-ink focus:border-bcje-accent focus:outline-none focus:ring-1 focus:ring-bcje-accent"
+    ></textarea>
+  </div>
+
+  <div class="absolute left-[-9999px]" aria-hidden="true">
+    <label for="empresa_site">Não preencha este campo</label>
+    <input type="text" id="empresa_site" name="empresa_site" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <button
+      type="submit"
+      class="inline-flex items-center justify-center rounded-full bg-bcje-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-bcje-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      Enviar mensagem
+    </button>
+  </div>
+
+  <p id="contact-form-feedback" class="text-sm" role="status" aria-live="polite"></p>
+</form>
+
+<script define:vars={{ endpoint }}>
+  const form = document.getElementById('contact-form');
+  const feedback = document.getElementById('contact-form-feedback');
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!endpoint) {
+      feedback.textContent = 'Formulário indisponível no momento. Fale com a gente pelo WhatsApp.';
+      feedback.className = 'text-sm text-red-600';
+      return;
+    }
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    submitButton.disabled = true;
+    feedback.textContent = 'Enviando...';
+    feedback.className = 'text-sm text-bcje-graphite';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Não foi possível enviar sua mensagem.');
+      }
+
+      form.reset();
+      feedback.textContent = 'Mensagem enviada. Em breve entraremos em contato.';
+      feedback.className = 'text-sm text-bcje-accent';
+    } catch (error) {
+      feedback.textContent =
+        error instanceof Error ? error.message : 'Não foi possível enviar sua mensagem.';
+      feedback.className = 'text-sm text-red-600';
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+</script>

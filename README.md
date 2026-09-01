@@ -102,10 +102,29 @@ O Provimento 205/2021 do CFOAB, art. 4º, IV, exige nome do advogado (ou razão 
 
 É a OAB da **sociedade de advogados** (50.243), não a inscrição pessoal de Victor (387.406). Decisão de Victor (08/2026), revertendo uma primeira versão que não exibia OAB nenhuma.
 
+## Formulário de contato (Cloudflare Worker + Resend)
+
+Código em `worker/` (projeto separado do Astro, deploy próprio via Wrangler). Fluxo: `ContactForm.astro` faz `fetch` POST em JSON para o Worker; o Worker valida campos, aplica honeypot (`empresa_site`) e rate limit por IP (5 envios/hora via KV), e envia o e-mail via API do Resend para `contato@bcje.com.br` com `reply_to` do remetente.
+
+Setup (uma vez):
+
+```bash
+cd worker
+npm install
+npx wrangler login                              # abre o navegador para autenticar
+npx wrangler kv namespace create RATE_LIMIT      # copiar o id retornado para wrangler.toml
+npx wrangler secret put RESEND_API_KEY           # cola a API key do Resend quando solicitado
+npx wrangler deploy                              # publica o worker, retorna a URL *.workers.dev
+```
+
+Depois do deploy, definir a URL retornada como variável de repositório no GitHub (Settings → Secrets and variables → Actions → Variables → `PUBLIC_CONTACT_ENDPOINT`), para o build do Astro embutir o endpoint correto. Localmente, copiar `.env.example` para `.env` com o mesmo valor.
+
+O domínio `bcje.com.br` precisa estar verificado no Resend (registros DNS próprios, adicionados na mesma zona DNS da Hostinger onde estão os registros de e-mail existentes) para o envio funcionar — sem isso, e-mails de teste passam mas produção falha por falta de autenticação SPF/DKIM do remetente `site@bcje.com.br`.
+
 ## O que ainda falta (fora do escopo deste scaffold)
 
 - Menu principal completo: `/atuacao`, `/sobre`, `/blog`, `/contatos` e `/privacidade` publicadas
 - Botão de WhatsApp flutuante (hoje só existe a seção `ContatoWhatsApp`, não um botão fixo em todas as páginas)
-- Formulário de contato em `/contatos` (function serverless + Resend, conforme `ARQUITETURA-NOVO-SITE.md`). Decisão de 09/08/2026: a página subiu só com os canais que já funcionam (endereço, telefone, e-mail, WhatsApp); formulário fica para quando a infra (Cloudflare Worker + Resend) existir
 - Todas as 5 landing pages de campanha migradas: `planejamento-tributario-area-saude` e `recuperacao-credito-tributario` (15/08/2026), `defesa-execucao-fiscal`, `consultoria-juridica` e `consultoria-tributaria-empresarial` (01/09/2026), todas fora do menu principal, com compliance auditado; refinamento de copy/CTA fica para quando campanhas específicas de Ads forem estruturadas
 - Ícones dos 4 cards "por que escolher uma consultoria" existiam no site original (`wp-content/uploads/2023/09/home1-icon*.png`), em tom laranja/dourado. Não foram reaproveitados porque destoam da paleta verde/cinza nova; avaliar se vale recriar em tom neutro
+- Redirecionamentos 301 das URLs antigas descartadas (`/tag/*`, `/category/*`, `/author/*`) para preservar SEO acumulado

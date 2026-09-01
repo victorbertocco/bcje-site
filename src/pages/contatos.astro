@@ -1,17 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContatoWhatsApp from '../components/ContatoWhatsApp.astro';
+import ContactForm from '../components/ContactForm.astro';
 
 /*
  * Conteúdo migrado do site WordPress atual (wordpress-export/contatos/index.html),
  * não reescrito do zero. Ver marketing/site-bcje/ARQUITETURA-NOVO-SITE.md
  * no workspace principal para o histórico da migração.
  *
- * Decisão de escopo (09/08/2026): esta página publica os canais de contato que
- * já funcionam hoje (endereço, e-mail, telefone, WhatsApp). O formulário do
- * Elementor original dependia de infraestrutura que ainda não existe no novo
- * site (Cloudflare Worker + Resend, ver README.md "O que ainda falta") e fica
- * como pendência registrada, não como placeholder nesta página.
+ * Decisão de escopo (09/08/2026): esta página publicou primeiro só os canais
+ * de contato que já funcionavam (endereço, e-mail, telefone, WhatsApp).
+ * Formulário funcional adicionado em 01/09/2026 (Cloudflare Worker + Resend,
+ * ver worker/ e README.md).
  *
  * A seção "Desbloqueie infinitas novas possibilidades!" do original foi
  * descartada por ser texto de preenchimento de template (Elementor/Envato),
@@ -77,6 +77,18 @@ const contatos = [
           </div>
         ))
       }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-2xl px-6 pb-20">
+    <div class="rounded-3xl border border-bcje-mist bg-white p-8 sm:p-10">
+      <h2 class="text-xl font-bold text-bcje-ink">Envie uma mensagem</h2>
+      <p class="mt-2 text-sm text-bcje-graphite">
+        Preencha os campos abaixo e retornaremos por e-mail ou telefone.
+      </p>
+      <div class="relative mt-6">
+        <ContactForm />
+      </div>
     </div>
   </section>
 

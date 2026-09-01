@@ -1,0 +1,16 @@
+name = "bcje-site-contato"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+# Preenchido por `npx wrangler kv namespace create RATE_LIMIT`
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = ""
+
+[vars]
+ALLOWED_ORIGINS = "https://bcje.com.br,https://www.bcje.com.br,http://localhost:4321"
+CONTACT_TO = "contato@bcje.com.br"
+CONTACT_FROM = "Site BCJE <site@bcje.com.br>"
+
+# RESEND_API_KEY é secret, definido via `npx wrangler secret put RESEND_API_KEY`,
+# nunca neste arquivo.
